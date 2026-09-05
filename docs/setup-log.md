@@ -62,3 +62,47 @@ Week 2 will focus on:
 4. Initial log ingestion
 5. SPL searches
 6. Beginning SOC detection exercises
+
+
+## Week 2 — Splunk Enterprise Setup
+
+### Splunk Server
+
+Splunk Enterprise 10.4.3 was successfully installed on the AWS EC2 SOC lab server.
+
+Environment:
+- OS: Ubuntu Server 24.04 LTS
+- Architecture: x86_64
+- Splunk version: 10.4.3
+- Splunk service account: splunk
+- Splunk Web: port 8000
+- Splunk management: port 8089
+- AWS region: eu-west-2 (London)
+
+### Splunk Configuration
+
+The Splunk Trial license was verified successfully.
+
+- License group: Trial
+- Daily indexing allowance: 500 MB
+- License expiration: November 4, 2026
+- License violations: None
+- Licensing warnings: None
+
+A dedicated SOC index was created:
+
+- Index: soc_logs
+
+The index was verified successfully using an event-count search. The result was 0 events because no endpoint has been connected yet.
+
+### Week 2 Status
+
+- [x] Splunk installed
+- [x] Splunk service running
+- [x] Splunk Web accessible
+- [x] Trial license verified
+- [x] SOC index created
+- [x] SOC index verified
+- [ ] Windows endpoint connected
+- [ ] Sysmon configured
+- [ ] Universal Forwarder configured
