@@ -63,3 +63,28 @@ index=soc_logs
 | eval Detection="PowerShell Behavioral Analysis"
 | table _time host Detection Severity Score Image CommandLine ParentImage User ProcessId
 | sort - _time
+
+## Validation Results
+
+The detection was validated in Splunk using the `soc_logs` index and a seven-day search window.
+
+The search returned **2 PowerShell process creation events**:
+
+* **2026-09-05 16:24:49** — Score **1**, Severity **Low**. PowerShell was executed with `-NoProfile` and a benign test command.
+* **2026-09-05 15:13:24** — Score **0**, Severity **Informational**. No suspicious behavioral indicators were detected.
+
+The results confirm that the detection logic successfully identifies PowerShell process creation and assigns severity based on command-line behavior.
+
+### Validation Outcome
+
+The detection is functioning as intended. Benign PowerShell activity can be identified without automatically classifying it as malicious, while commands containing suspicious behaviors such as encoded commands, network retrieval, or dynamic code execution receive higher scores.
+
+No High-severity PowerShell activity was observed during the validation period.
+
+## Conclusion
+
+Detection 01 successfully demonstrates basic PowerShell behavioral detection and risk scoring in Splunk. The rule can be used as a foundation for future detection engineering and can be further improved with additional behavioral indicators and false-positive tuning.
+
+## Evidence
+
+![Detection 01 Splunk Results](../media/detection-01-splunk-results.png)
