@@ -251,3 +251,119 @@ The detection work is version-controlled in GitHub together with supporting evid
 ## Next Phase
 
 Week 5 will focus on advanced Splunk Universal Forwarder configuration and improved log collection.
+
+
+# Week 5 — Universal Forwarder Configuration Review & Validation
+
+## Objective
+
+Review, validate, and document the Windows Splunk Universal Forwarder configuration to ensure reliable Sysmon telemetry forwarding to the cloud Splunk server.
+
+## Universal Forwarder Output Configuration
+
+The effective Universal Forwarder output configuration was verified using Splunk `btool`.
+
+The configured Splunk Enterprise receiving server is:
+
+- Server: `172.31.61.233`
+- Port: `9997`
+- Protocol: TCP
+
+The Universal Forwarder uses the `default-autolb-group` output group.
+
+## Universal Forwarder Input Configuration
+
+The Sysmon Windows Event Log input was verified using `btool`.
+
+Effective configuration:
+
+```ini
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]
+disabled = false
+index = soc_logs
+renderXml = true
+
+## Configuration Validation
+
+The following configuration checks were completed:
+
+- `outputs.conf` validated with `btool`
+- `inputs.conf` validated with `btool`
+- Sysmon input confirmed as enabled
+- `soc_logs` index confirmed as the destination
+- XML rendering confirmed
+- Universal Forwarder service confirmed as running
+- Universal Forwarder configured for automatic startup
+
+## Telemetry Validation
+
+Splunk searches were used to verify the health and consistency of the forwarded telemetry.
+
+The primary Sysmon sourcetype was:
+
+`XmlWinEventLog:Microsoft-Windows-Sysmon/Operational`
+
+The lab received continuous telemetry from the Windows endpoint.
+
+Event distribution included:
+
+- Event ID 1 — Process Creation
+- Event ID 3 — Network Connection
+- Event ID 5 — Process Terminated
+- Event ID 16 — Sysmon Configuration Change
+- Event ID 4 — Sysmon Service State Change
+
+The Windows endpoint was identified by the host:
+
+`EC2AMAZ-OOOVRCR`
+
+## Service Health Validation
+
+The Windows Universal Forwarder service was verified with PowerShell.
+
+The service was:
+
+- Running
+- Configured for automatic startup
+- Running under the dedicated `NT SERVICE\SplunkForwarder` service account
+
+## Configuration Backups
+
+Backups of the active Universal Forwarder configuration files were created before further validation:
+
+- `inputs.conf.week5-backup`
+- `outputs.conf.week5-backup`
+
+The backup files were kept on the Windows endpoint and were not added to the GitHub repository.
+
+## Restart and Recovery Test
+
+The Splunk Universal Forwarder service was restarted to verify operational recovery.
+
+After the restart:
+
+- The service returned to the `Running` state.
+- New Sysmon events continued to arrive in Splunk.
+- The telemetry pipeline resumed successfully.
+
+Before the restart, Splunk recorded 79,049 events.
+
+After the restart validation, Splunk recorded 79,222 events.
+
+This confirmed that telemetry continued to be forwarded after the Universal Forwarder restart.
+
+## Week 5 Result
+
+**Status: Completed**
+
+The Universal Forwarder configuration was reviewed, validated, backed up, and tested.
+
+The Windows-to-Splunk telemetry pipeline remained operational after a controlled Universal Forwarder restart.
+
+No unnecessary configuration changes were made because the existing configuration was already functional and correctly forwarding Sysmon telemetry.
+
+## Next Phase
+
+Week 6 will focus on advanced SOC detection engineering using the validated Windows Sysmon telemetry.
+
+

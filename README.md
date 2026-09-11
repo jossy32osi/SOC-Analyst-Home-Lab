@@ -313,3 +313,73 @@ SOC dashboards and alerting
 Advanced SOC exercises
 Portfolio development
 Final SOC incident investigation
+
+---
+
+## Week 5 — Universal Forwarder Configuration & Validation
+
+Status: Completed
+
+The Windows Splunk Universal Forwarder configuration was reviewed and validated to confirm reliable Sysmon telemetry forwarding to the cloud Splunk server.
+
+### Configuration Validation
+
+- Universal Forwarder output configuration validated with `btool`
+- Splunk receiving server validated on TCP 9997
+- Sysmon Windows Event Log input validated with `btool`
+- Sysmon input confirmed as enabled
+- `soc_logs` confirmed as the destination index
+- XML rendering confirmed
+- Universal Forwarder service confirmed as running
+- Universal Forwarder configured for automatic startup
+
+### Telemetry Validation
+
+The forwarded Sysmon telemetry was validated in Splunk.
+
+Primary sourcetype:
+
+`XmlWinEventLog:Microsoft-Windows-Sysmon/Operational`
+
+The Windows endpoint was identified as:
+
+`EC2AMAZ-OOOVRCR`
+
+The telemetry included:
+
+- Event ID 1 — Process Creation
+- Event ID 3 — Network Connection
+- Event ID 5 — Process Terminated
+- Event ID 16 — Sysmon Configuration Change
+- Event ID 4 — Sysmon Service State Change
+
+### Restart and Recovery Test
+
+The Splunk Universal Forwarder service was restarted to test operational recovery.
+
+The service returned to the `Running` state and new Sysmon events continued to arrive in Splunk.
+
+Event count before restart:
+
+`79,049`
+
+Event count after restart validation:
+
+`79,222`
+
+This confirmed that the Windows-to-Splunk telemetry pipeline continued operating after the Universal Forwarder restart.
+
+### Evidence
+
+Week 5 evidence is stored in the `media/` directory:
+
+- `week5-outputs-btool-validation.png`
+- `week5-inputs-btool-validation.png`
+- `week5-post-restart-telemetry-validation.png`
+
+No unnecessary configuration changes were made because the existing Universal Forwarder configuration was already functional.
+
+### Next Phase
+
+Week 6 will focus on advanced SOC detection engineering using the validated Windows Sysmon telemetry.
+

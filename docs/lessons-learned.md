@@ -98,3 +98,37 @@ The first four weeks demonstrated the complete basic flow of a practical SOC env
 The lab has progressed from basic cloud infrastructure to working security monitoring and detection engineering.
 
 The next phase will focus on improving log collection and Universal Forwarder configuration before moving into more advanced detection engineering, incident response, and threat hunting.
+
+
+---
+
+## Week 5 — Universal Forwarder Configuration & Validation
+
+### What I Learned
+
+- How to use Splunk `btool` to verify the effective Universal Forwarder configuration.
+- How to verify the Universal Forwarder output destination and TCP port.
+- How to verify that Sysmon Operational logs are enabled and assigned to the correct Splunk index.
+- How to confirm that XML rendering is enabled for Windows Sysmon events.
+- How to verify the Universal Forwarder Windows service status and startup configuration.
+- How to create configuration backups before performing operational testing.
+- How to validate continuous telemetry ingestion using Splunk searches.
+- How to perform a controlled Universal Forwarder restart and verify recovery.
+- How to compare telemetry before and after a service restart.
+
+### Key Lesson
+
+Reliable SOC monitoring depends on more than simply installing a Universal Forwarder. The configuration must be validated, the service must remain healthy, and telemetry must continue after operational events such as a service restart.
+
+The Week 5 validation confirmed that the Windows endpoint can reliably forward Sysmon telemetry to the centralized Splunk SIEM.
+
+---
+
+## Overall Lessons From Weeks 1–5
+
+The first five weeks demonstrate the progression of a practical SOC environment:
+
+**Infrastructure → SIEM → Endpoint Telemetry → Detection → Investigation → Tuning → Forwarder Validation → Documentation**
+
+The lab now has a validated Windows-to-Splunk telemetry pipeline that can support more advanced detection engineering, incident response, and threat-hunting exercises.
+
