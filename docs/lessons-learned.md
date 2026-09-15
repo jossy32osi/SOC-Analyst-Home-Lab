@@ -132,3 +132,74 @@ The first five weeks demonstrate the progression of a practical SOC environment:
 
 The lab now has a validated Windows-to-Splunk telemetry pipeline that can support more advanced detection engineering, incident response, and threat-hunting exercises.
 
+---
+
+## Week 6 — Detection Engineering & Analyst Triage
+
+### What I Learned
+
+* How to build and validate multiple SOC detections using real Windows endpoint telemetry.
+* How to use Sysmon Event ID 1 for process execution investigations.
+* How to use Sysmon Event ID 3 for network connection investigations.
+* How to investigate PowerShell activity as a behavioral signal rather than automatically treating it as malicious.
+* How to extract fields from raw Sysmon XML using Splunk `rex`.
+* How to identify useful fields such as `Image`, `User`, `ProcessId`, `ProcessGuid`, `SourceIp`, `DestinationIp`, `DestinationPort`, and `Initiated`.
+* How to investigate suspicious process execution and PowerShell network activity.
+* How to use process and network context to support SOC analyst triage.
+* How to identify and document legitimate activity that could create false positives.
+* How to recognize the limitations of available telemetry.
+* How to avoid assuming that missing telemetry proves that an event did not occur.
+* How to document what the available evidence actually proves.
+* How to validate detections against real events in Splunk.
+* How to capture screenshots as validation evidence.
+* How to document detection logic, validation results, investigation workflow, and conclusions in GitHub.
+
+### Detection Engineering Workflow
+
+The practical workflow used during Week 6 was:
+
+1. Identify a security-relevant behavior.
+2. Identify the appropriate Sysmon telemetry.
+3. Build the SPL detection.
+4. Extract required fields from the raw event when necessary.
+5. Search the Splunk `soc_logs` index.
+6. Investigate the returned events.
+7. Determine whether the activity may be legitimate or suspicious.
+8. Consider false-positive scenarios.
+9. Validate the detection against real telemetry.
+10. Capture evidence.
+11. Document the investigation.
+12. Commit the completed detection to GitHub.
+
+### Key Lesson
+
+A SOC detection is an investigation starting point, not automatically a declaration of compromise.
+
+During Week 6, the lab demonstrated that PowerShell network activity can be identified through Sysmon and Splunk, while also showing why an analyst must examine user, process, command-line, destination, and timeline context before determining whether activity is suspicious.
+
+Another important lesson was the value of telemetry limitations. When expected supporting events were unavailable, the investigation documented the limitation rather than making assumptions about what happened.
+
+---
+
+## Week 6 Detection Summary
+
+The following detections were completed and validated during Week 6:
+
+| Detection    | Focus                                                 | Status   |
+| ------------ | ----------------------------------------------------- | -------- |
+| Detection 01 | PowerShell analysis                                   | Complete |
+| Detection 02 | PowerShell outbound network activity                  | Complete |
+| Detection 03 | Suspicious process execution                          | Complete |
+| Detection 04 | PowerShell external network activity / analyst triage | Complete |
+
+All four detections were documented with investigation logic and validation evidence and committed to the SOC Analyst Home Lab repository.
+
+### Week 6 Outcome
+
+Week 6 moved the lab from basic log collection into practical detection engineering and analyst triage.
+
+The lab can now:
+
+**Collect endpoint telemetry → Search the SIEM → Extract relevant fields → Detect behavior → Investigate results → Evaluate false positives → Document findings → Preserve evidence in GitHub**
+
+This establishes the foundation for the next stage of the SOC Analyst Home Lab.
